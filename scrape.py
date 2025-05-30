@@ -62,7 +62,7 @@ with open('games_data.txt', 'w', encoding='utf-8') as file:
         file.write("-" * 60 + "\n")
     
     file.write(f"Total games found: {len(games_data)}\n")
-    file.write("Script by Adib - www.adib23704.com\n")
+    file.write("Script by Adib - https://github.com/Adib23704/Steam-Offer-Scraper\n")
 
 print(f"{Fore.GREEN}{Style.BRIGHT}Data has been saved to 'games_data.txt'.{Style.RESET_ALL}")
-print(f"{Fore.WHITE}{Style.BRIGHT}Script by Adib - www.adib23704.com{Style.RESET_ALL}")
+print(f"{Fore.WHITE}{Style.BRIGHT}Script by Adib - https://github.com/Adib23704/Steam-Offer-Scraper{Style.RESET_ALL}")
