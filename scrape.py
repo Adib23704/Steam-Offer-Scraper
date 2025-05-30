@@ -10,7 +10,14 @@ init(autoreset=True)
 now = datetime.datetime.now()
 print(f"{Fore.YELLOW}{Style.BRIGHT}Scraped at: {now.strftime('%Y-%m-%d %H:%M:%S')}{Style.RESET_ALL}")
 print("-" * 60)
-response = requests.get(url)
+
+try:
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
+except requests.RequestException as e:
+    print(f"{Fore.RED}{Style.BRIGHT}Failed to reach the URL: {e}{Style.RESET_ALL}")
+    exit(1)
+
 soup = BeautifulSoup(response.text, 'html.parser')
 
 games_data = []
