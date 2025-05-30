@@ -1,7 +1,15 @@
+import datetime
+
 url = 'https://store.steampowered.com/search/?specials=1&os=win'
 import requests
 from bs4 import BeautifulSoup
+from colorama import init, Fore, Style
 
+init(autoreset=True)
+
+now = datetime.datetime.now()
+print(f"{Fore.YELLOW}{Style.BRIGHT}Scraped at: {now.strftime('%Y-%m-%d %H:%M:%S')}{Style.RESET_ALL}")
+print("-" * 60)
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -26,4 +34,28 @@ for game_item in soup.find_all('a', class_='search_result_row'):
     })
 
 for game in games_data:
-    print(game)
+    print(f"{Fore.CYAN}{Style.BRIGHT}Title:{Style.RESET_ALL} {game['Title']}")
+    print(f"{Fore.GREEN}Original Price:{Style.RESET_ALL} {game['Original Price']}")
+    print(f"{Fore.RED}Final Price:{Style.RESET_ALL} {game['Final Price']}")
+    print(f"{Fore.MAGENTA}Discount:{Style.RESET_ALL} {game['Discount']}")
+    print(f"{Fore.BLUE}Link:{Style.RESET_ALL} {game['Link']}")
+    print("-" * 60)
+
+print(f"{Fore.YELLOW}{Style.BRIGHT}Total games found: {len(games_data)}{Style.RESET_ALL}")
+
+with open('games_data.txt', 'w', encoding='utf-8') as file:
+    file.write(f"Scraped at: {now.strftime('%Y-%m-%d %H:%M:%S')}\n")
+    file.write("-" * 60 + "\n\n")
+    for game in games_data:
+        file.write(f"Title: {game['Title']}\n")
+        file.write(f"Original Price: {game['Original Price']}\n")
+        file.write(f"Final Price: {game['Final Price']}\n")
+        file.write(f"Discount: {game['Discount']}\n")
+        file.write(f"Link: {game['Link']}\n")
+        file.write("-" * 60 + "\n")
+    
+    file.write(f"Total games found: {len(games_data)}\n")
+    file.write("Script by Adib - www.adib23704.com\n")
+
+print(f"{Fore.GREEN}{Style.BRIGHT}Data has been saved to 'games_data.txt'.{Style.RESET_ALL}")
+print(f"{Fore.WHITE}{Style.BRIGHT}Script by Adib - www.adib23704.com{Style.RESET_ALL}")
